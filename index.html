@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pavan Nagadiya | Backend Engineer · NestJS & Node.js</title>
+<meta name="description" content="Backend Engineer with 5+ years of experience specialising in NestJS, Node.js, scalable APIs and cloud architecture. Based in Surat, India."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #09090f;
+  --bg2:     #0f0f1a;
+  --bg3:     #14141f;
+  --card:    #12121c;
+  --accent:  #00e5a0;
+  --accent2: #7c6cfa;
+  --accent3: #fa6c6c;
+  --text:    #ededf0;
+  --muted:   #7a7890;
+  --border:  rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Syne', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 4rem;
+  background: rgba(9,9,15,0.88);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem; color: var(--accent); letter-spacing: 0.12em;
+}
+.nav-links { display: flex; gap: 2.2rem; }
+.nav-links a {
+  font-size: 0.78rem; color: var(--muted);
+  text-decoration: none; letter-spacing: 0.09em;
+  text-transform: uppercase; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-cta {
+  font-family: 'Space Mono', monospace; font-size: 0.72rem;
+  padding: 0.5rem 1.2rem; border: 1px solid var(--accent);
+  color: var(--accent); text-decoration: none; border-radius: 3px;
+  transition: background 0.2s, color 0.2s;
+}
+.nav-cta:hover { background: var(--accent); color: #09090f; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 9rem 4rem 5rem;
+  position: relative; overflow: hidden;
+}
+.hero-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at 25% 55%, black 10%, transparent 65%);
+}
+.hero-orb1 {
+  position: absolute; top: 5%; left: -15%; width: 700px; height: 700px;
+  border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(0,229,160,0.07) 0%, transparent 65%);
+}
+.hero-orb2 {
+  position: absolute; bottom: 0; right: -8%; width: 550px; height: 550px;
+  border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(124,108,250,0.07) 0%, transparent 65%);
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Space Mono', monospace; font-size: 0.7rem;
+  color: var(--accent); border: 1px solid rgba(0,229,160,0.25);
+  padding: 0.4rem 1rem; border-radius: 2rem;
+  margin-bottom: 2rem; width: fit-content;
+}
+.hero-tag-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+  animation: blink 2s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+h1.name {
+  font-size: clamp(3.2rem, 9vw, 6.5rem);
+  font-weight: 800; line-height: 0.95;
+  letter-spacing: -0.04em; margin-bottom: 1.2rem;
+}
+h1.name .accent { color: var(--accent); }
+
+.hero-title {
+  font-family: 'Space Mono', monospace; font-size: 0.85rem;
+  color: var(--muted); letter-spacing: 0.14em; margin-bottom: 1.8rem;
+}
+
+.hero-desc {
+  max-width: 560px; font-size: 1rem;
+  color: var(--muted); line-height: 1.85; margin-bottom: 2.5rem;
+}
+
+.hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-fill {
+  padding: 0.9rem 2.2rem; background: var(--accent); color: #09090f;
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem;
+  border: none; border-radius: 4px; cursor: pointer;
+  text-decoration: none; display: inline-block;
+  transition: opacity 0.2s, transform 0.15s;
+}
+.btn-fill:hover { opacity: 0.85; transform: translateY(-2px); }
+.btn-ghost {
+  padding: 0.9rem 2.2rem; background: transparent; color: var(--text);
+  font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.85rem;
+  border: 1px solid var(--border2); border-radius: 4px; cursor: pointer;
+  text-decoration: none; display: inline-block;
+  transition: border-color 0.2s, color 0.2s, transform 0.15s;
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+.hero-stats {
+  display: flex; gap: 3rem; margin-top: 4rem;
+  padding-top: 2.5rem; border-top: 1px solid var(--border);
+}
+.hero-stat-num {
+  font-size: 2.2rem; font-weight: 800; color: var(--accent); line-height: 1;
+}
+.hero-stat-label {
+  font-size: 0.75rem; color: var(--muted); margin-top: 0.3rem; letter-spacing: 0.05em;
+}
+
+/* ── SECTION COMMON ── */
+section { padding: 6rem 4rem; }
+.section-eyebrow {
+  font-family: 'Space Mono', monospace; font-size: 0.68rem;
+  color: var(--accent); letter-spacing: 0.22em; text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+.section-heading {
+  font-size: 2.6rem; font-weight: 800;
+  line-height: 1.1; margin-bottom: 3rem;
+}
+
+/* reveal */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-delay { transition-delay: 0.12s; }
+
+/* ── SKILLS ── */
+.skills-section { background: var(--bg2); }
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+.skill-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 1.6rem;
+  transition: border-color 0.25s, transform 0.25s;
+}
+.skill-card:hover { border-color: rgba(0,229,160,0.35); transform: translateY(-4px); }
+.skill-card-cat {
+  font-family: 'Space Mono', monospace; font-size: 0.62rem;
+  color: var(--accent); letter-spacing: 0.14em; margin-bottom: 0.6rem;
+}
+.skill-card-name { font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; }
+.tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.tag {
+  font-size: 0.67rem; padding: 0.25rem 0.6rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: 3px; color: var(--muted);
+}
+
+/* ── EXPERIENCE ── */
+.exp-section { background: var(--bg); }
+.exp-timeline { display: flex; flex-direction: column; gap: 0; }
+.exp-item {
+  display: grid; grid-template-columns: 200px 1fr;
+  gap: 0 3rem; position: relative; padding-bottom: 3rem;
+}
+.exp-item::before {
+  content: '';
+  position: absolute; left: 200px; top: 10px; bottom: 0;
+  width: 1px; background: var(--border);
+  transform: translateX(-1.5rem);
+}
+.exp-item:last-child::before { display: none; }
+.exp-item:last-child { padding-bottom: 0; }
+.exp-dot {
+  position: absolute; left: 200px; top: 8px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--accent); border: 2px solid var(--bg);
+  transform: translateX(calc(-1.5rem - 4px));
+  box-shadow: 0 0 12px rgba(0,229,160,0.5);
+}
+.exp-date {
+  font-family: 'Space Mono', monospace; font-size: 0.68rem;
+  color: var(--muted); padding-top: 0.1rem; line-height: 1.6;
+  text-align: right;
+}
+.exp-company {
+  font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem;
+}
+.exp-role {
+  font-family: 'Space Mono', monospace; font-size: 0.72rem;
+  color: var(--accent2); margin-bottom: 1rem; letter-spacing: 0.05em;
+}
+.exp-points { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+.exp-points li {
+  font-size: 0.875rem; color: var(--muted); line-height: 1.7;
+  padding-left: 1.1rem; position: relative;
+}
+.exp-points li::before {
+  content: '→'; position: absolute; left: 0;
+  color: var(--accent); font-size: 0.75rem;
+}
+
+/* ── PROJECTS ── */
+.projects-section { background: var(--bg2); }
+.projects-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.project-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 2rem;
+  transition: border-color 0.25s, transform 0.25s;
+  display: flex; flex-direction: column;
+}
+.project-card:hover { transform: translateY(-5px); }
+.project-card.live { border-top: 2px solid var(--accent); }
+.project-card.live:hover { border-color: rgba(0,229,160,0.4); }
+.project-card.nda { border-top: 2px solid var(--accent2); }
+.project-card.nda:hover { border-color: rgba(124,108,250,0.4); }
+.project-card.freelance { border-top: 2px solid var(--accent3); }
+.project-card.freelance:hover { border-color: rgba(250,108,108,0.4); }
+
+.proj-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: 'Space Mono', monospace; font-size: 0.63rem;
+  padding: 0.28rem 0.7rem; border-radius: 2rem; margin-bottom: 1.2rem; width: fit-content;
+}
+.badge-green { background: rgba(0,229,160,0.1); color: var(--accent); }
+.badge-purple { background: rgba(124,108,250,0.1); color: var(--accent2); }
+.badge-red { background: rgba(250,108,108,0.1); color: var(--accent3); }
+.badge-dot { width: 5px; height: 5px; border-radius: 50%; }
+.badge-green .badge-dot { background: var(--accent); }
+.badge-purple .badge-dot { background: var(--accent2); }
+.badge-red .badge-dot { background: var(--accent3); }
+
+.proj-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.6rem; }
+.proj-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.2rem; flex: 1; }
+.proj-stack { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.2rem; }
+.proj-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.78rem; font-weight: 700; text-decoration: none;
+  transition: gap 0.2s;
+}
+.proj-link:hover { gap: 10px; }
+.link-green { color: var(--accent); }
+.link-muted { color: var(--muted); pointer-events: none; }
+
+/* ── ABOUT ── */
+.about-section { background: var(--bg); }
+.about-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+}
+.about-text { font-size: 0.95rem; color: var(--muted); line-height: 1.95; }
+.about-text strong { color: var(--text); font-weight: 600; }
+.education-block { margin-top: 2.5rem; }
+.edu-item { padding: 1.2rem 0; border-bottom: 1px solid var(--border); }
+.edu-item:first-child { border-top: 1px solid var(--border); }
+.edu-degree { font-weight: 700; font-size: 0.95rem; }
+.edu-school { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+.edu-year { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: var(--accent); margin-top: 0.2rem; }
+.achievement {
+  background: var(--card); border: 1px solid var(--border);
+  border-left: 3px solid var(--accent); border-radius: 8px;
+  padding: 1.2rem 1.4rem; margin-top: 1.5rem;
+}
+.achievement-label {
+  font-family: 'Space Mono', monospace; font-size: 0.63rem;
+  color: var(--accent); letter-spacing: 0.14em; margin-bottom: 0.5rem;
+}
+.achievement p { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
+
+/* RIGHT COLUMN cards */
+.info-cards { display: flex; flex-direction: column; gap: 1rem; }
+.info-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 1.4rem;
+  transition: border-color 0.25s;
+}
+.info-card:hover { border-color: var(--border2); }
+.info-card-label {
+  font-family: 'Space Mono', monospace; font-size: 0.62rem;
+  color: var(--muted); letter-spacing: 0.12em; margin-bottom: 0.5rem;
+}
+.info-card-val { font-size: 0.95rem; font-weight: 600; }
+
+/* ── CONTACT ── */
+.contact-section { background: var(--bg2); }
+.contact-center { max-width: 640px; margin: 0 auto; text-align: center; }
+.contact-center p {
+  font-size: 1rem; color: var(--muted); line-height: 1.85; margin-bottom: 2.5rem;
+}
+.contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+.contact-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem; margin-top: 2rem; text-align: left;
+}
+.contact-item {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 1rem 1.2rem;
+}
+.contact-item-label {
+  font-family: 'Space Mono', monospace; font-size: 0.6rem;
+  color: var(--muted); letter-spacing: 0.12em; margin-bottom: 0.35rem;
+}
+.contact-item-val { font-size: 0.8rem; color: var(--accent); word-break: break-all; }
+.contact-item a { color: var(--accent); text-decoration: none; }
+.contact-item a:hover { text-decoration: underline; }
+
+/* ── FOOTER ── */
+footer {
+  padding: 2rem 4rem; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+footer p {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem; color: var(--muted);
+}
+.f-accent { color: var(--accent); }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero, section { padding: 4rem 1.5rem; }
+  .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+  .exp-item { grid-template-columns: 1fr; }
+  .exp-item::before { display: none; }
+  .exp-dot { display: none; }
+  .exp-date { text-align: left; padding-bottom: 0.5rem; }
+  .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+  footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">PN://</span>
+  <div class="nav-links">
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="mailto:nagadiyap@gmail.com" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-orb1"></div>
+  <div class="hero-orb2"></div>
+
+  <div class="hero-tag">
+    <span class="hero-tag-dot"></span>
+    Open to new opportunities
+  </div>
+
+  <h1 class="name">Pavan<br><span class="accent">Nagadiya</span></h1>
+  <p class="hero-title">// Backend Engineer &nbsp;·&nbsp; NestJS &amp; Node.js Specialist &nbsp;·&nbsp; API Architect</p>
+  <p class="hero-desc">
+    I build the backend that powers great products — scalable APIs, clean server architecture, and cloud-native systems on AWS. 5+ years of backend engineering with NestJS &amp; Node.js. I also ship frontends with Next.js when needed.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn-fill">View My Work →</a>
+    <a href="#contact" class="btn-ghost">Get In Touch</a>
+  </div>
+
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-num">5+</div>
+      <div class="hero-stat-label">Years experience</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">4</div>
+      <div class="hero-stat-label">Companies worked at</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">10+</div>
+      <div class="hero-stat-label">Projects delivered</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">∞</div>
+      <div class="hero-stat-label">Lines of code</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <div class="reveal">
+    <p class="section-eyebrow">// 001 &nbsp; Tech Stack</p>
+    <h2 class="section-heading">Backend first.<br/><span style="color:var(--muted);font-size:1.6rem;font-weight:600;">Frontend when needed.</span></h2>
+  </div>
+
+  <!-- Backend skills row — prominent -->
+  <div style="margin-bottom:1rem;">
+    <p style="font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--accent);letter-spacing:0.18em;margin-bottom:0.8rem;">— BACKEND CORE</p>
+    <div class="skills-grid reveal reveal-delay">
+      <div class="skill-card" style="border-color:rgba(0,229,160,0.2);">
+        <p class="skill-card-cat">Primary Framework</p>
+        <p class="skill-card-name">NestJS</p>
+        <div class="tags"><span class="tag">Modules</span><span class="tag">Guards</span><span class="tag">Interceptors</span><span class="tag">Pipes</span><span class="tag">Decorators</span><span class="tag">Microservices</span><span class="tag">ElasticSearch</span></div>
+      </div>
+      <div class="skill-card" style="border-color:rgba(0,229,160,0.2);">
+        <p class="skill-card-cat">Runtime &amp; Framework</p>
+        <p class="skill-card-name">Node.js &amp; Express</p>
+        <div class="tags"><span class="tag">REST API</span><span class="tag">Middleware</span><span class="tag">JWT Auth</span><span class="tag">Webhooks</span><span class="tag">Rate Limiting</span><span class="tag">Socket.io</span></div>
+      </div>
+      <div class="skill-card" style="border-color:rgba(0,229,160,0.2);">
+        <p class="skill-card-cat">Database</p>
+        <p class="skill-card-name">SQL &amp; NoSQL</p>
+        <div class="tags"><span class="tag">MongoDB</span><span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">TypeORM</span><span class="tag">Mongoose</span></div>
+      </div>
+      <div class="skill-card" style="border-color:rgba(0,229,160,0.2);">
+        <p class="skill-card-cat">Cloud &amp; Third-party APIs</p>
+        <p class="skill-card-name">AWS &amp; Integrations</p>
+        <div class="tags"><span class="tag">AWS SES</span><span class="tag">SNS</span><span class="tag">SQS</span><span class="tag">S3</span><span class="tag">Stripe</span><span class="tag">PayPal</span><span class="tag">Twilio</span><span class="tag">Firebase</span><span class="tag">Postmark</span><span class="tag">SendGrid</span><span class="tag">Zendesk</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supporting skills row — smaller -->
+  <div>
+    <p style="font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--muted);letter-spacing:0.18em;margin-bottom:0.8rem;">— SUPPORTING</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.75rem;" class="reveal reveal-delay">
+      <div class="skill-card" style="opacity:0.75;padding:1.2rem;">
+        <p class="skill-card-cat">Language</p>
+        <p class="skill-card-name" style="font-size:0.9rem;">TypeScript &amp; JavaScript</p>
+        <div class="tags"><span class="tag">ES2022+</span><span class="tag">TypeScript</span></div>
+      </div>
+      <div class="skill-card" style="opacity:0.75;padding:1.2rem;">
+        <p class="skill-card-cat">Frontend (when needed)</p>
+        <p class="skill-card-name" style="font-size:0.9rem;">Next.js &amp; React</p>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">React</span><span class="tag">Tailwind</span><span class="tag">MUI</span></div>
+      </div>
+      <div class="skill-card" style="opacity:0.75;padding:1.2rem;">
+        <p class="skill-card-cat">Deployment &amp; Hosting</p>
+        <p class="skill-card-name" style="font-size:0.9rem;">Self-hosted &amp; Cloud Deploy</p>
+        <div class="tags"><span class="tag">Vercel</span><span class="tag">Shared Hosting</span><span class="tag">cPanel</span><span class="tag">PM2</span><span class="tag">Git</span><span class="tag">GitHub Actions</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="exp-section" id="experience">
+  <div class="reveal">
+    <p class="section-eyebrow">// 002 &nbsp; Work History</p>
+    <h2 class="section-heading">Experience</h2>
+  </div>
+
+  <div class="exp-timeline reveal reveal-delay">
+
+    <div class="exp-item">
+      <div class="exp-date">Jul 2024 – Present</div>
+      <div class="exp-dot"></div>
+      <div>
+        <p class="exp-company">Crescentek</p>
+        <p class="exp-role">Backend Developer · NestJS Specialist</p>
+
+        <!-- Project 1: Healthcare -->
+        <div style="margin-bottom:1.5rem;">
+          <p style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent);letter-spacing:0.1em;margin-bottom:0.6rem;">PROJECT 1 — Healthcare Product</p>
+          <ul class="exp-points">
+            <li>Built scalable backend services using <strong style="color:var(--text)">NestJS + Microservices</strong> architecture for a healthcare platform.</li>
+            <li>Integrated <strong style="color:var(--text)">ElasticSearch</strong> for high-performance search across large patient and medical datasets.</li>
+            <li>Handled direct <strong style="color:var(--text)">client communication</strong> — gathered requirements, provided technical updates, and managed delivery timelines.</li>
+          </ul>
+        </div>
+
+        <!-- Project 2: B2B Marketing -->
+        <div style="margin-bottom:1.5rem;">
+          <p style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent2);letter-spacing:0.1em;margin-bottom:0.6rem;">PROJECT 2 — B2B Marketing Website</p>
+          <ul class="exp-points">
+            <li>Full-stack ownership — built backend APIs with <strong style="color:var(--text)">Node.js + MongoDB</strong> and frontend with <strong style="color:var(--text)">Next.js</strong>.</li>
+            <li>Integrated <strong style="color:var(--text)">Firebase Cloud Messaging</strong> for real-time push notifications to B2B users.</li>
+          </ul>
+        </div>
+
+        <!-- Project 3: PropTech -->
+        <div>
+          <p style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent3);letter-spacing:0.1em;margin-bottom:0.6rem;">PROJECT 3 — PropTech / Real Estate <span style="background:rgba(250,108,108,0.12);padding:0.15rem 0.5rem;border-radius:2rem;font-size:0.6rem;">Current</span></p>
+          <ul class="exp-points">
+            <li>Engineering backend systems with <strong style="color:var(--text)">NestJS</strong> for a real estate platform handling property listings, bookings, and payments.</li>
+            <li>Integrated dual payment gateways — <strong style="color:var(--text)">Stripe + PayPal</strong> — for property transactions.</li>
+            <li>Built real-time features using <strong style="color:var(--text)">Socket.io</strong> for live property updates and notifications.</li>
+            <li>Integrated <strong style="color:var(--text)">Zendesk</strong> for customer support ticketing and <strong style="color:var(--text)">Firebase + PostMark + SendGrid</strong> for multi-channel notifications.</li>
+            <li>Managed file/media storage using <strong style="color:var(--text)">AWS S3</strong> for property images and documents.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Feb 2023 – Jun 2024<br/>Sep 2020 – Mar 2022</div>
+      <div class="exp-dot"></div>
+      <div>
+        <p class="exp-company">0xblock Pvt Ltd</p>
+        <p class="exp-role">Full-Stack Developer (Rejoined for critical phases)</p>
+
+        <div style="margin-bottom:1.5rem;">
+          <p style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent);letter-spacing:0.1em;margin-bottom:0.6rem;">PROJECT 1 — Web3 / DeFi Platform</p>
+          <ul class="exp-points">
+            <li>Architected full-stack Web3 platform using <strong style="color:var(--text)">Next.js + Node.js</strong> with Ethereum &amp; Solana smart contract integration on both frontend and backend.</li>
+            <li>Built real-time pricing alert system using <strong style="color:var(--text)">Telegram Bots, AWS SES &amp; SNS</strong> for email and SMS notifications.</li>
+            <li>Integrated <strong style="color:var(--text)">Stripe</strong> payment gateway for seamless global transactions.</li>
+          </ul>
+        </div>
+
+        <div>
+          <p style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent2);letter-spacing:0.1em;margin-bottom:0.6rem;">PROJECT 2 — Media Processing Tool</p>
+          <ul class="exp-points">
+            <li>Developed backend feature for <strong style="color:var(--text)">dynamic text overlay on GIFs</strong> — real-time media processing pipeline.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Apr 2022 – Feb 2023</div>
+      <div class="exp-dot"></div>
+      <div>
+        <p class="exp-company">Soft 'n' Web <span style="font-size:0.75rem;color:var(--muted);font-weight:400;">— on-site at Glide Invest (Motilal Oswal Group)</span></p>
+        <p class="exp-role">Software Engineer</p>
+
+        <div style="margin-bottom:1.5rem;">
+          <p style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent);letter-spacing:0.1em;margin-bottom:0.6rem;">PROJECT 1 — Glide Invest Marketing Website</p>
+          <ul class="exp-points">
+            <li>Built the core marketing website using <strong style="color:var(--text)">Next.js SSG</strong> — achieved high SEO rankings and top performance scores.</li>
+            <li>Worked directly with stakeholders to gather requirements and deliver agile updates.</li>
+          </ul>
+        </div>
+
+        <div>
+          <p style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent2);letter-spacing:0.1em;margin-bottom:0.6rem;">PROJECT 2 — Browser-based Voice Calling App</p>
+          <ul class="exp-points">
+            <li>Built a real-time browser calling application integrating <strong style="color:var(--text)">Twilio</strong> for voice and <strong style="color:var(--text)">Firebase Realtime Database</strong> for call state management.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Jul 2018 – Sep 2020</div>
+      <div class="exp-dot"></div>
+      <div>
+        <p class="exp-company">Eryushion Techsol PVT LTD</p>
+        <p class="exp-role">Web Developer</p>
+
+        <div style="margin-bottom:1.5rem;">
+          <p style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent);letter-spacing:0.1em;margin-bottom:0.6rem;">PROJECT 1 — Peer-to-Peer Marketplace</p>
+          <ul class="exp-points">
+            <li>Built an OLX-like marketplace platform with product listing, search, and buyer-seller negotiation flows using <strong style="color:var(--text)">React.js</strong>.</li>
+          </ul>
+        </div>
+
+        <div style="margin-bottom:1.5rem;">
+          <p style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent2);letter-spacing:0.1em;margin-bottom:0.6rem;">PROJECT 2 — School Management System</p>
+          <ul class="exp-points">
+            <li>Developed a comprehensive EdTech platform featuring <strong style="color:var(--text)">online examinations</strong> and <strong style="color:var(--text)">fee payment gateway</strong> integration.</li>
+          </ul>
+        </div>
+
+        <div>
+          <p style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent3);letter-spacing:0.1em;margin-bottom:0.6rem;">PROJECT 3 — Admin Dashboards</p>
+          <ul class="exp-points">
+            <li>Built responsive admin dashboard UIs using <strong style="color:var(--text)">Angular</strong> and <strong style="color:var(--text)">React.js</strong> for multiple internal clients.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects-section" id="projects">
+  <div class="reveal">
+    <p class="section-eyebrow">// 003 &nbsp; Portfolio</p>
+    <h2 class="section-heading">Projects</h2>
+  </div>
+
+  <div class="projects-grid reveal reveal-delay">
+
+    <!-- LIVE -->
+    <div class="project-card live">
+      <div class="proj-badge badge-green"><span class="badge-dot"></span> Live</div>
+      <h3 class="proj-title">TapGrowBizz</h3>
+      <p class="proj-desc">NFC-powered digital business card platform — built and deployed end-to-end by myself. NestJS backend self-hosted on shared hosting, Next.js frontend deployed on Vercel. Full ownership from code to production.</p>
+      <div class="proj-stack">
+        <span class="tag">NestJS</span><span class="tag">MongoDB</span><span class="tag">Next.js</span><span class="tag">NFC</span><span class="tag">Shared Hosting</span><span class="tag">Vercel</span>
+      </div>
+      <a href="http://tapgrowbiz.com/" class="proj-link link-green" target="_blank">tapgrowbiz.com →</a>
+    </div>
+
+
+
+    <!-- FREELANCE: Bill splitting -->
+    <div class="project-card freelance">
+      <div class="proj-badge badge-red"><span class="badge-dot"></span> Freelance</div>
+      <h3 class="proj-title">Bill Splitting API</h3>
+      <p class="proj-desc">Robust REST API for a mobile app with Splitwise-like expense sharing logic — handles group creation, expense allocation, and settlement calculations.</p>
+      <div class="proj-stack">
+        <span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">REST API</span>
+      </div>
+      <span class="proj-link link-muted">Private – details on request</span>
+    </div>
+
+    <!-- Crescentek: Healthcare -->
+    <div class="project-card nda">
+      <div class="proj-badge badge-purple"><span class="badge-dot"></span> Crescentek (NDA)</div>
+      <h3 class="proj-title">Healthcare Platform</h3>
+      <p class="proj-desc">Backend for a healthcare product using NestJS Microservices architecture. Integrated ElasticSearch for fast medical data search. Handled direct client communication and delivery.</p>
+      <div class="proj-stack">
+        <span class="tag">NestJS</span><span class="tag">Microservices</span><span class="tag">ElasticSearch</span><span class="tag">TypeORM</span>
+      </div>
+      <span class="proj-link link-muted">Under NDA – details on request</span>
+    </div>
+
+    <!-- Crescentek: B2B Marketing -->
+    <div class="project-card nda">
+      <div class="proj-badge badge-purple"><span class="badge-dot"></span> Crescentek (NDA)</div>
+      <h3 class="proj-title">B2B Marketing Platform</h3>
+      <p class="proj-desc">Full-stack ownership — REST API backend with Node.js + MongoDB and Next.js frontend. Integrated Firebase Cloud Messaging for real-time push notifications to B2B users.</p>
+      <div class="proj-stack">
+        <span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">Next.js</span><span class="tag">Firebase FCM</span>
+      </div>
+      <span class="proj-link link-muted">Under NDA – details on request</span>
+    </div>
+
+    <!-- Crescentek: PropTech -->
+    <div class="project-card nda" style="border-top-color: var(--accent3);">
+      <div class="proj-badge badge-red"><span class="badge-dot"></span> Crescentek · Current</div>
+      <h3 class="proj-title">PropTech — Real Estate Platform</h3>
+      <p class="proj-desc">Backend engineer on a live real estate platform — property listings, bookings, and payments. Dual payment gateways, real-time updates via Socket.io, multi-channel notifications, and S3 media storage.</p>
+      <div class="proj-stack">
+        <span class="tag">NestJS</span><span class="tag">Stripe</span><span class="tag">PayPal</span><span class="tag">Socket.io</span><span class="tag">Zendesk</span><span class="tag">Firebase</span><span class="tag">PostMark</span><span class="tag">SendGrid</span><span class="tag">AWS S3</span>
+      </div>
+      <span class="proj-link link-muted">Under NDA – details on request</span>
+    </div>
+
+    <!-- 0xblock: DeFi -->
+    <div class="project-card nda">
+      <div class="proj-badge badge-purple"><span class="badge-dot"></span> 0xblock (NDA)</div>
+      <h3 class="proj-title">Web3 / DeFi Platform</h3>
+      <p class="proj-desc">Full-stack Web3 platform with Ethereum &amp; Solana smart contract integration. Real-time price alerts via Telegram Bot, AWS SES &amp; SNS. Stripe payments for global transactions.</p>
+      <div class="proj-stack">
+        <span class="tag">Next.js</span><span class="tag">Node.js</span><span class="tag">Ethereum</span><span class="tag">Solana</span><span class="tag">AWS SES/SNS</span><span class="tag">Stripe</span>
+      </div>
+      <span class="proj-link link-muted">Under NDA – details on request</span>
+    </div>
+
+    <!-- Soft n Web: Glide Invest -->
+    <div class="project-card nda">
+      <div class="proj-badge badge-purple"><span class="badge-dot"></span> Soft 'n' Web (NDA)</div>
+      <h3 class="proj-title">Glide Invest — Fintech Platform</h3>
+      <p class="proj-desc">Marketing website with high SEO via Next.js SSG for Motilal Oswal's subsidiary. Plus a browser-based voice calling app powered by Twilio + Firebase Realtime Database.</p>
+      <div class="proj-stack">
+        <span class="tag">Next.js</span><span class="tag">Twilio</span><span class="tag">Firebase</span><span class="tag">SEO</span>
+      </div>
+      <span class="proj-link link-muted">Under NDA – details on request</span>
+    </div>
+
+    <!-- Eryushion: Marketplace -->
+    <div class="project-card nda">
+      <div class="proj-badge badge-purple"><span class="badge-dot"></span> Eryushion (NDA)</div>
+      <h3 class="proj-title">Peer-to-Peer Marketplace</h3>
+      <p class="proj-desc">OLX-like marketplace platform with product listing, search, and buyer-seller negotiation flows. Also built a School Management System with online exams and fee payment gateway.</p>
+      <div class="proj-stack">
+        <span class="tag">React.js</span><span class="tag">Angular</span><span class="tag">Payment Gateway</span><span class="tag">Admin Dashboard</span>
+      </div>
+      <span class="proj-link link-muted">Under NDA – details on request</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <div class="reveal">
+      <p class="section-eyebrow">// 004 &nbsp; About Me</p>
+      <h2 class="section-heading">The person<br/>behind the code</h2>
+      <p class="about-text">
+        I'm <strong>Pavan Nagadiya</strong>, a Backend Engineer from <strong>Surat, India</strong> with 5+ years of experience building production-grade systems.<br/><br/>
+        My core is <strong>backend architecture</strong> — I think in terms of API contracts, database schemas, service boundaries, and system scalability. NestJS and Node.js are my primary tools; MongoDB and PostgreSQL are where I design data that lasts.<br/><br/>
+        I've integrated AWS SES, SNS, SQS, Stripe, Twilio, and more across multiple production systems. I can also own the frontend with Next.js when the project needs it — but backend is where I go deep.<br/><br/>
+        From fintech at Motilal Oswal Group, to Web3 at 0xblock, to enterprise SaaS at Crescentek — I've shipped across domains, always with <strong>clean, maintainable, scalable code</strong>.
+      </p>
+
+      <div class="education-block">
+        <p style="font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--accent);letter-spacing:0.14em;margin-bottom:1rem;">EDUCATION</p>
+        <div class="edu-item">
+          <p class="edu-degree">MCA — Master of Computer Applications</p>
+          <p class="edu-school">Atmiya Institute of Technology &amp; Science</p>
+          <p class="edu-year">2017 – 2019</p>
+        </div>
+        <div class="edu-item">
+          <p class="edu-degree">BCA — Bachelor of Computer Applications</p>
+          <p class="edu-school">Geetanjali College</p>
+          <p class="edu-year">2014 – 2017</p>
+        </div>
+      </div>
+
+      <div class="achievement">
+        <p class="achievement-label">🏆 &nbsp; Achievement</p>
+        <p>Awarded <strong style="color:var(--text)">Employee of the Month</strong> by the Engineering team for outstanding contributions and on-time delivery on a critical USA-based project.</p>
+      </div>
+    </div>
+
+    <div class="info-cards reveal reveal-delay">
+      <div class="info-card" style="border-left: 2px solid var(--accent);">
+        <p class="info-card-label">Specialisation</p>
+        <p class="info-card-val">Backend Engineering · API Architecture</p>
+      </div>
+      <div class="info-card">
+        <p class="info-card-label">Primary stack</p>
+        <p class="info-card-val">NestJS · Node.js · MongoDB · PostgreSQL</p>
+      </div>
+      <div class="info-card">
+        <p class="info-card-label">Currently at</p>
+        <p class="info-card-val">Crescentek · MERN Stack Developer</p>
+      </div>
+      <div class="info-card">
+        <p class="info-card-label">Location</p>
+        <p class="info-card-val">Surat, Gujarat, India</p>
+      </div>
+      <div class="info-card">
+        <p class="info-card-label">Domain experience</p>
+        <p class="info-card-val">Fintech · Web3 / DeFi · SaaS · EdTech</p>
+      </div>
+      <div class="info-card">
+        <p class="info-card-label">Available for</p>
+        <p class="info-card-val">Freelance · Remote · Full-time roles</p>
+      </div>
+      <div class="info-card">
+        <p class="info-card-label">Profiles</p>
+        <div style="display:flex;flex-direction:column;gap:0.3rem;margin-top:0.2rem;">
+          <a href="https://github.com/pavannagadiya" target="_blank" style="font-size:0.8rem;color:var(--accent);text-decoration:none;">GitHub →</a>
+          <a href="https://linkedin.com/in/pavan-nagadiya-229348129" target="_blank" style="font-size:0.8rem;color:var(--accent);text-decoration:none;">LinkedIn →</a>
+          <a href="https://stackblitz.com/@pavannagadiya" target="_blank" style="font-size:0.8rem;color:var(--accent);text-decoration:none;">StackBlitz →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-center reveal">
+    <p class="section-eyebrow" style="text-align:center;">// 005 &nbsp; Let's work together</p>
+    <h2 class="section-heading" style="text-align:center;">Get In Touch</h2>
+    <p>
+      Whether you have a backend system to build, an API to architect, or want a reliable full-stack engineer on your team — I'd love to hear from you.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:nagadiyap@gmail.com" class="btn-fill">Send an Email →</a>
+      <a href="https://linkedin.com/in/pavan-nagadiya-229348129" class="btn-ghost" target="_blank">LinkedIn</a>
+      <a href="https://github.com/pavannagadiya" class="btn-ghost" target="_blank">GitHub</a>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-item">
+        <p class="contact-item-label">Email</p>
+        <p class="contact-item-val"><a href="mailto:nagadiyap@gmail.com">nagadiyap@gmail.com</a></p>
+      </div>
+      <div class="contact-item">
+        <p class="contact-item-label">Mobile</p>
+        <p class="contact-item-val"><a href="tel:+919773238982">+91 97732 38982</a></p>
+      </div>
+      <div class="contact-item">
+        <p class="contact-item-label">StackBlitz</p>
+        <p class="contact-item-val"><a href="https://stackblitz.com/@pavannagadiya" target="_blank">stackblitz.com/@pavannagadiya</a></p>
+      </div>
+      <div class="contact-item">
+        <p class="contact-item-label">GitHub</p>
+        <p class="contact-item-val"><a href="https://github.com/pavannagadiya" target="_blank">github.com/pavannagadiya</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span class="f-accent">Pavan Nagadiya</span></p>
+  <p>Built clean · <span class="f-accent">Backend first</span> · Deployed on GitHub Pages</p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
