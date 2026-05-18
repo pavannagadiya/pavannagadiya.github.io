@@ -205,7 +205,7 @@ section { padding: 6rem 4rem; }
   content: '';
   position: absolute; left: 200px; top: 10px; bottom: 0;
   width: 1px; background: var(--border);
-  transform: translateX(-1.5rem);
+  transform: translateX(1.5rem); /* Shift right into the gap instead of left */
 }
 .exp-item:last-child::before { display: none; }
 .exp-item:last-child { padding-bottom: 0; }
@@ -213,7 +213,7 @@ section { padding: 6rem 4rem; }
   position: absolute; left: 200px; top: 8px;
   width: 10px; height: 10px; border-radius: 50%;
   background: var(--accent); border: 2px solid var(--bg);
-  transform: translateX(calc(-1.5rem - 4px));
+  transform: translateX(calc(1.5rem - 5px)); /* Center the dot perfectly on the line */
   box-shadow: 0 0 12px rgba(0,229,160,0.5);
 }
 .exp-date {
@@ -855,11 +855,12 @@ footer p {
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2025 <span class="f-accent">Pavan Nagadiya</span></p>
+  <p>© <span id="current-year"></span> <span class="f-accent">Pavan Nagadiya</span></p>
   <p>Built clean · <span class="f-accent">Backend first</span> · Deployed on GitHub Pages</p>
 </footer>
 
 <script>
+  document.getElementById('current-year').textContent = new Date().getFullYear();
   const reveals = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
