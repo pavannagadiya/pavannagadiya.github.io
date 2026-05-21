@@ -205,7 +205,7 @@ section { padding: 6rem 4rem; }
   content: '';
   position: absolute; left: 200px; top: 10px; bottom: 0;
   width: 1px; background: var(--border);
-  transform: translateX(1.5rem); /* Shift right into the gap instead of left */
+  transform: translateX(1.5rem);
 }
 .exp-item:last-child::before { display: none; }
 .exp-item:last-child { padding-bottom: 0; }
@@ -213,7 +213,7 @@ section { padding: 6rem 4rem; }
   position: absolute; left: 200px; top: 8px;
   width: 10px; height: 10px; border-radius: 50%;
   background: var(--accent); border: 2px solid var(--bg);
-  transform: translateX(calc(1.5rem - 5px)); /* Center the dot perfectly on the line */
+  transform: translateX(calc(1.5rem - 5px));
   box-shadow: 0 0 12px rgba(0,229,160,0.5);
 }
 .exp-date {
@@ -433,7 +433,6 @@ footer p {
     <h2 class="section-heading">Backend first.<br/><span style="color:var(--muted);font-size:1.6rem;font-weight:600;">Frontend when needed.</span></h2>
   </div>
 
-  <!-- Backend skills row — prominent -->
   <div style="margin-bottom:1rem;">
     <p style="font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--accent);letter-spacing:0.18em;margin-bottom:0.8rem;">— BACKEND CORE</p>
     <div class="skills-grid reveal reveal-delay">
@@ -460,7 +459,6 @@ footer p {
     </div>
   </div>
 
-  <!-- Supporting skills row — smaller -->
   <div>
     <p style="font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--muted);letter-spacing:0.18em;margin-bottom:0.8rem;">— SUPPORTING</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.75rem;" class="reveal reveal-delay">
@@ -499,7 +497,6 @@ footer p {
         <p class="exp-company">Crescentek</p>
         <p class="exp-role">Backend Developer · NestJS Specialist</p>
 
-        <!-- Project 1: Healthcare -->
         <div style="margin-bottom:1.5rem;">
           <p style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent);letter-spacing:0.1em;margin-bottom:0.6rem;">PROJECT 1 — Healthcare Product</p>
           <ul class="exp-points">
@@ -509,7 +506,6 @@ footer p {
           </ul>
         </div>
 
-        <!-- Project 2: B2B Marketing -->
         <div style="margin-bottom:1.5rem;">
           <p style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent2);letter-spacing:0.1em;margin-bottom:0.6rem;">PROJECT 2 — B2B Marketing Website</p>
           <ul class="exp-points">
@@ -518,7 +514,6 @@ footer p {
           </ul>
         </div>
 
-        <!-- Project 3: PropTech -->
         <div>
           <p style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent3);letter-spacing:0.1em;margin-bottom:0.6rem;">PROJECT 3 — PropTech / Real Estate <span style="background:rgba(250,108,108,0.12);padding:0.15rem 0.5rem;border-radius:2rem;font-size:0.6rem;">Current</span></p>
           <ul class="exp-points">
@@ -530,13 +525,11 @@ footer p {
           </ul>
         </div>
 
-        <!-- Additional Projects & Support -->
         <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px dashed var(--border);">
           <p style="font-family:'Space Mono',monospace; font-size:0.72rem; color:var(--muted);">
             <span style="color:var(--accent);">*</span> Note: In addition to these primary projects, I have also contributed to and provided support for several other client-facing applications during my tenure.
           </p>
         </div>
-
       </div>
     </div>
 
@@ -563,13 +556,11 @@ footer p {
           </ul>
         </div>
 
-        <!-- Additional Projects & Support -->
         <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px dashed var(--border);">
           <p style="font-family:'Space Mono',monospace; font-size:0.72rem; color:var(--muted);">
             <span style="color:var(--accent2);">*</span> Note: In addition to these primary projects, I have also contributed to and provided support for several other client-facing applications during my tenure.
           </p>
         </div>
-
       </div>
     </div>
 
@@ -595,13 +586,11 @@ footer p {
           </ul>
         </div>
 
-        <!-- Additional Projects & Support -->
         <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px dashed var(--border);">
           <p style="font-family:'Space Mono',monospace; font-size:0.72rem; color:var(--muted);">
             <span style="color:var(--accent2);">*</span> Note: In addition to these primary projects, I have also contributed to and provided support for several other client-facing applications during my tenure.
           </p>
         </div>
-
       </div>
     </div>
 
@@ -633,13 +622,11 @@ footer p {
           </ul>
         </div>
 
-        <!-- Additional Projects & Support -->
         <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px dashed var(--border);">
           <p style="font-family:'Space Mono',monospace; font-size:0.72rem; color:var(--muted);">
             <span style="color:var(--accent3);">*</span> Note: In addition to these primary projects, I have also contributed to and provided support for several other client-facing applications during my tenure.
           </p>
         </div>
-
       </div>
     </div>
 
@@ -664,19 +651,6 @@ footer p {
         <span class="tag">NestJS</span><span class="tag">MongoDB</span><span class="tag">Next.js</span><span class="tag">NFC</span><span class="tag">Shared Hosting</span><span class="tag">Vercel</span>
       </div>
       <a href="http://tapgrowbiz.com/" class="proj-link link-green" target="_blank">tapgrowbiz.com →</a>
-    </div>
-
-
-
-    <!-- FREELANCE: Bill splitting -->
-    <div class="project-card freelance">
-      <div class="proj-badge badge-red"><span class="badge-dot"></span> Freelance</div>
-      <h3 class="proj-title">Bill Splitting API</h3>
-      <p class="proj-desc">Robust REST API for a mobile app with Splitwise-like expense sharing logic — handles group creation, expense allocation, and settlement calculations.</p>
-      <div class="proj-stack">
-        <span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">REST API</span>
-      </div>
-      <span class="proj-link link-muted">Private – details on request</span>
     </div>
 
     <!-- Crescentek: Healthcare -->
@@ -801,10 +775,6 @@ footer p {
       <div class="info-card">
         <p class="info-card-label">Domain experience</p>
         <p class="info-card-val">Fintech · Web3 / DeFi · SaaS · EdTech</p>
-      </div>
-      <div class="info-card">
-        <p class="info-card-label">Available for</p>
-        <p class="info-card-val">Freelance · Remote · Full-time roles</p>
       </div>
       <div class="info-card">
         <p class="info-card-label">Profiles</p>
